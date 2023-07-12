@@ -4,15 +4,13 @@ const equalsButton = document.getElementById("equals-btn");
 const operatorButtons = document.querySelectorAll(".operator-btn");
 
 digitButtons.forEach(button => {
-  button.addEventListener("click", addDigitToNumberString)
+  button.addEventListener("click", updateDisplayValue)
 });
 equalsButton.addEventListener("click", operate);
 
 operatorButtons.forEach(button => {
-  button.addEventListener("click", setOperator)
+  button.addEventListener("click", selectOperator)
 });
-
-
 
 // Math functions
 const add = (a, b) => a + b;
@@ -20,56 +18,45 @@ const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
 
-// Globals
-let activeNumberString = "";
-let operator = "";
-let numberHolder = [];
+// Global variables
+let result = 0;
+let displayValue = "";
+
 
 // cijfers duwen = aan string toevoegen (variabele input)
 // operator duwen = variabele input opslaan in andere variabele, string leegmaken, operator pslaan
 // cijfers duwen = aan string toevogen (variable input)
 // = duwen = som
 
-function operate() {
-  numberHolder.push(parseFloat(activeNumberString));
-  console.log(numberHolder);
-  console.log(operator);
-  let result;
-
+function operate(operator, num1, num2) {
   switch (operator) {
     case "add":
-      result = add(numberHolder[0], numberHolder[1]);
-      break
+      return add(num1, num2);
     case "subtract":
-      result = subtract(numberHolder[0], numberHolder[1]);
-      break
+      return subtract(num1, num2);
     case "multiply":
-      result = multiply(numberHolder[0], numberHolder[1]);
-      break
+      return multiply(num1, num2);
     case "divide":
-      result = divide(numberHolder[0], numberHolder[1]);
-      break
+      return divide(num1, num2);
   }
 
+}
+
+
+function selectOperator(event) {
+  const operator = event.target.dataset.operator;
+  const activeNumber = parseInt(displayValue);
+  result = operate(operator, activeNumber, result);
+  displayValue = "";
+  display.textContent = displayValue;
   console.log(result);
+
 }
 
-
-function setOperator(e) {
-  operator = e.target.dataset.operator;
-  numberHolder.push(parseFloat(activeNumberString));
-  activeNumberString = "";
-  console.log(`operator: ${operator}`);
-  console.log(`numberHolder: ${numberHolder}`);
+function updateDisplayValue(event) {
+  displayValue += event.target.dataset.digit;
+  display.textContent = displayValue;
 }
-
-function addDigitToNumberString(e) {
-    activeNumberString += e.target.dataset.digit;
-    console.log(`activeNumberString: ${activeNumberString}`);
-}
-
-
-
 
 
 
