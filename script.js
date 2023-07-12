@@ -32,29 +32,18 @@ function setOperator() {
   console.log(operator);
 }
 
-function add(num1, num2) {
-  return num1 + num2;
-}
-
-function subtract(num1, num2) {
-  return num1 - num2;
-}
-
-
-function multiply(num1, num2) {
-  return num1 * num2;
-}
-
-function divide(num1, num2) {
-  return num1 / num2;
-}
-
 function addDigitToNumberString() {
   if (!(num1.length < 1 && this.value === "0")) {
     num1 += this.value;
     console.log(num1);
   }
 }
+
+// Math functions
+const add = (a, b) => a + b;
+const subtract = (a, b) => a - b;
+const multiply = (a, b) => a * b;
+const divide = (a, b) => a / b;
 
 
 
