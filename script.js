@@ -6,44 +6,50 @@ const operatorButtons = document.querySelectorAll(".operator-btn");
 digitButtons.forEach(button => {
   button.addEventListener("click", addDigitToNumberString)
 });
+equalsButton.addEventListener("click", operate);
 
 operatorButtons.forEach(button => {
   button.addEventListener("click", setOperator)
 });
 
 
-equalsButton.addEventListener("click", operate);
-
-let num1 = "";
-let operator;
-
-function operate(operator, num1, num2 = display.textContent) {
-  switch (operator) {
-    case "add": console.log(add(num1, num2));
-    case "subtract": return subtract(num1, num2);
-    case "multiply": return multiply(num1, num2);
-    case "divide": return divide(num1, num2);
-  }
-}
-
-
-function setOperator() {
-  operator = this.value;
-  console.log(operator);
-}
-
-function addDigitToNumberString() {
-  if (!(num1.length < 1 && this.value === "0")) {
-    num1 += this.value;
-    console.log(num1);
-  }
-}
 
 // Math functions
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
+
+let num1 = "";
+let num2 = "";
+let operator = "";
+let result = 0;
+
+function operate(operator, num1, num2) {
+  switch (operator) {
+    case "add":
+      result = add(num1, num2);
+    case "subtract":
+      result = subtract(num1, num2);
+    case "multiply":
+      result = multiply(num1, num2);
+    case "divide":
+      result = divide(num1, num2);
+  }
+}
+
+
+function setOperator(e) {
+  operator = e.target.dataset.operator;
+  console.log(`operator: ${operator}`);
+}
+
+function addDigitToNumberString(e) {
+    num1 += e.target.dataset.digit;
+    console.log(`num1: ${num1}`);
+}
+
+
 
 
 
