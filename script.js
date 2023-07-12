@@ -1,7 +1,7 @@
 const digitButtons = document.querySelectorAll(".digit-btn");
-const operatorButtons = document.querySelectorAll(".operator-btn");
-const equalsButton = document.getElementById("equals-btn");
 const display = document.querySelector(".display");
+const equalsButton = document.getElementById("equals-btn");
+const operatorButtons = document.querySelectorAll(".operator-btn");
 
 digitButtons.forEach(button => {
   button.addEventListener("click", addDigitToNumberString)
