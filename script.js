@@ -20,33 +20,52 @@ const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
 
-let num1 = "";
-let num2 = "";
+// Globals
+let activeNumberString = "";
 let operator = "";
-let result = 0;
+let numberHolder = [];
 
-function operate(operator, num1, num2) {
+// cijfers duwen = aan string toevoegen (variabele input)
+// operator duwen = variabele input opslaan in andere variabele, string leegmaken, operator pslaan
+// cijfers duwen = aan string toevogen (variable input)
+// = duwen = som
+
+function operate() {
+  numberHolder.push(parseFloat(activeNumberString));
+  console.log(numberHolder);
+  console.log(operator);
+  let result;
+
   switch (operator) {
     case "add":
-      result = add(num1, num2);
+      result = add(numberHolder[0], numberHolder[1]);
+      break
     case "subtract":
-      result = subtract(num1, num2);
+      result = subtract(numberHolder[0], numberHolder[1]);
+      break
     case "multiply":
-      result = multiply(num1, num2);
+      result = multiply(numberHolder[0], numberHolder[1]);
+      break
     case "divide":
-      result = divide(num1, num2);
+      result = divide(numberHolder[0], numberHolder[1]);
+      break
   }
+
+  console.log(result);
 }
 
 
 function setOperator(e) {
   operator = e.target.dataset.operator;
+  numberHolder.push(parseFloat(activeNumberString));
+  activeNumberString = "";
   console.log(`operator: ${operator}`);
+  console.log(`numberHolder: ${numberHolder}`);
 }
 
 function addDigitToNumberString(e) {
-    num1 += e.target.dataset.digit;
-    console.log(`num1: ${num1}`);
+    activeNumberString += e.target.dataset.digit;
+    console.log(`activeNumberString: ${activeNumberString}`);
 }
 
 
