@@ -6,7 +6,7 @@ const operatorButtons = document.querySelectorAll(".operator-btn");
 digitButtons.forEach(button => {
   button.addEventListener("click", updateDisplayValue)
 });
-equalsButton.addEventListener("click", operate);
+equalsButton.addEventListener("click", calculate);
 
 operatorButtons.forEach(button => {
   button.addEventListener("click", selectOperator)
@@ -19,8 +19,10 @@ const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
 
 // Global variables
-let result = 0;
 let displayValue = "";
+let operator;
+let num1;
+let num2;
 
 
 // cijfers duwen = aan string toevoegen (variabele input)
@@ -28,34 +30,40 @@ let displayValue = "";
 // cijfers duwen = aan string toevogen (variable input)
 // = duwen = som
 
-function operate(operator, num1, num2) {
+function calculate() {
+  num2 = parseInt(displayValue);
+  displayValue = operate(operator, num1, num2);
+  updateDisplay(displayValue);
+}
+
+function operate(operator, a, b) {
   switch (operator) {
     case "add":
-      return add(num1, num2);
+      return add(a, b);
     case "subtract":
-      return subtract(num1, num2);
+      return subtract(a, b);
     case "multiply":
-      return multiply(num1, num2);
+      return multiply(a, b);
     case "divide":
-      return divide(num1, num2);
+      return divide(a, b);
   }
 
 }
 
 
-function selectOperator(event) {
-  const operator = event.target.dataset.operator;
-  const activeNumber = parseInt(displayValue);
-  result = operate(operator, activeNumber, result);
+function selectOperator() {
+  operator = this.dataset.operator;
+  num1 = parseInt(displayValue);
   displayValue = "";
-  display.textContent = displayValue;
-  console.log(result);
-
 }
 
-function updateDisplayValue(event) {
-  displayValue += event.target.dataset.digit;
-  display.textContent = displayValue;
+function updateDisplayValue() {
+  displayValue += this.dataset.digit;
+  updateDisplay(displayValue);
+}
+
+function updateDisplay(value) {
+  display.textContent = value;
 }
 
 
