@@ -57,7 +57,7 @@ function operate(operator, a, b) {
 
 function setOperator(event) {
   console.log("setOperator()");
-  if (solution !== undefined) {
+  if (num1 !== undefined) {
     console.log("there is a num1");
     calculate();
   }
