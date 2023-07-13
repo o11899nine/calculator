@@ -27,14 +27,21 @@ let solution;
 
 
 function calculate() {
+  console.log("calculate()");
   num2 = parseFloat(displayValue);
+  console.log(`num2: ${num2}`);
   solution = operate(operator, num1, num2);
+  console.log(`solution: ${solution}`);
   num1 = solution;
+  console.log(`num1: ${num1}`);
   displayValue = solution;
+  console.log(`displayValue: ${displayValue}`);
   updateDisplay(displayValue);
 }
 
+
 function operate(operator, a, b) {
+  console.log("operate()");
   switch (operator) {
     case "add":
       return add(a, b);
@@ -49,21 +56,23 @@ function operate(operator, a, b) {
 
 
 function setOperator(event) {
-  if (num1 !== undefined) {
+  console.log("setOperator()");
+  if (solution !== undefined) {
     console.log("there is a num1");
     calculate();
   }
   operator = event.target.dataset.operator;
+  console.log(`operator: ${operator}`);
   num1 = parseFloat(displayValue);
+  console.log(`num1: ${num1}`);
   displayValue = "";
-
-  if (solution !== null) {
-    
-  }
+  console.log(`displayValue: ${displayValue}`);
 }
 
 function addDigit(event) {
+  console.log("addDigit()");
   displayValue += event.target.dataset.digit;
+  console.log(`displayValue: ${displayValue}`);
   updateDisplay(displayValue);
 }
 
