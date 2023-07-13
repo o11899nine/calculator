@@ -57,10 +57,6 @@ function operate(operator, a, b) {
 
 function setOperator(event) {
   console.log("setOperator()");
-  if (num1 !== undefined) {
-    console.log("there is a num1");
-    calculate();
-  }
   operator = event.target.dataset.operator;
   console.log(`operator: ${operator}`);
   num1 = parseFloat(displayValue);
