@@ -1,14 +1,16 @@
-const digitButtons = document.querySelectorAll(".digit-btn");
+const digiBtns = document.querySelectorAll(".digit-btn");
 const display = document.querySelector(".display");
-const equalsButton = document.getElementById("equals-btn");
-const operatorButtons = document.querySelectorAll(".operator-btn");
+const backspaceBtn = document.getElementById("backspace-btn");
+const equalsBtn = document.getElementById("equals-btn");
+const operatorBtns = document.querySelectorAll(".operator-btn");
 
-digitButtons.forEach(button => {
+digiBtns.forEach(button => {
   button.addEventListener("click", addDigit)
 });
-equalsButton.addEventListener("click", calculate);
+equalsBtn.addEventListener("click", calculate);
+backspaceBtn.addEventListener("click", removeDigit);
 
-operatorButtons.forEach(button => {
+operatorBtns.forEach(button => {
   button.addEventListener("click", setOperator)
 });
 
@@ -61,6 +63,15 @@ function setOperator(event) {
 function addDigit(event) {
   newNumberString += event.target.dataset.digit;
   updateDisplay(newNumberString);
+}
+
+function removeDigit() {
+  newNumberString = newNumberString.slice(0, -1);
+  if (newNumberString !== "") {
+    updateDisplay(newNumberString); 
+  } else {
+    updateDisplay("0");
+  }
 }
 
 function updateDisplay(value) {
