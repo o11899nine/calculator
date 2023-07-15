@@ -23,6 +23,7 @@
 .calculator {
   background-color: #F3F3F3;
   border: 1px solid #707070;
+  border-radius: 5px;
   height: 510px;
   padding: 4px;
   width: 482px;
