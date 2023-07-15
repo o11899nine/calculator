@@ -1,6 +1,7 @@
+const backspaceBtn = document.getElementById("backspace-btn");
+const clearBtn = document.getElementById("clear-btn");
 const digiBtns = document.querySelectorAll(".digit-btn");
 const display = document.querySelector(".display");
-const backspaceBtn = document.getElementById("backspace-btn");
 const equalsBtn = document.getElementById("equals-btn");
 const operatorBtns = document.querySelectorAll(".operator-btn");
 
@@ -9,6 +10,7 @@ digiBtns.forEach(button => {
 });
 equalsBtn.addEventListener("click", calculate);
 backspaceBtn.addEventListener("click", removeDigit);
+clearBtn.addEventListener("click", reset);
 
 operatorBtns.forEach(button => {
   button.addEventListener("click", setOperator)
@@ -21,21 +23,19 @@ const multiply = (a, b) => a * b;
 const divide = (a, b) => a / b;
 
 // Global variables
-let newNumberString = "";
-let operator;
-let numbers = [];
-let solution = 0;
+let numberString = "";
+let operator = "";
+let memory = [];
 
 function calculate() {
-  if (newNumberString !== "") {
-    numbers.push(parseFloat(newNumberString));
+  if (numberString !== "") {
+    memory.push(parseFloat(numberString));
   }
-  if (numbers.length > 1) {
-    solution = operate(numbers[0], numbers[1]);
-    numbers = [solution];
-    updateDisplay(solution)
+  if (memory.length > 1) {
+    memory = [operate(memory[0], memory[1])];
+    updateDisplay(memory)
   } 
-  newNumberString = "";
+  numberString = "";
 }
 
 
@@ -61,14 +61,21 @@ function setOperator(event) {
 }
 
 function addDigit(event) {
-  newNumberString += event.target.dataset.digit;
-  updateDisplay(newNumberString);
+  const digit = event.target.dataset.digit;
+
+  // Prevents two dots in one number
+  if (digit === "." && numberString.includes(".")) {
+    return
+  }
+
+  numberString += digit;
+  updateDisplay(numberString);
 }
 
 function removeDigit() {
-  newNumberString = newNumberString.slice(0, -1);
-  if (newNumberString !== "") {
-    updateDisplay(newNumberString); 
+  numberString = numberString.slice(0, -1);
+  if (numberString !== "") {
+    updateDisplay(numberString); 
   } else {
     updateDisplay("0");
   }
@@ -77,6 +84,15 @@ function removeDigit() {
 function updateDisplay(value) {
   display.textContent = value;
 }
+
+function reset() {
+  numberString = "";
+  operator = "";
+  memory = [];
+  display.textContent = "0";
+}
+
+reset();
 
 
 
