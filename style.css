@@ -1,29 +1,31 @@
 :root {
-  font-size: 62.5%;
   font-family: arial;
+  font-size: 62.5%;
 }
 
 *,
 *:before,
 *:after {
-  -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   font: inherit;
   margin: 0;
 }
 
 .container {
-  display: flex;
   align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
   justify-content: center;
   width: 100%;
-  height: 100vh;
 }
+
 .calculator {
   background-color: #F3F3F3;
-  border: 1px solid #707070;
   border-radius: 5px;
+  border: 1px solid #707070;
   height: 510px;
   padding: 4px;
   width: 482px;
@@ -31,28 +33,30 @@
 }
 
 .display {
-  height: 110px;
-  margin-bottom: 4px;
-  width: 100%;
-  display: flex;
   align-items: center;
-  justify-content: flex-end;
+  display: flex;
   font-size: 3.5rem;
   font-weight: 500;
+  height: 110px;
+  justify-content: flex-end;
+  margin-bottom: 4px;
+  overflow: hidden;
+  padding: 10px;
+  width: 100%;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, auto);
   gap: 2px;
+  grid-template-columns: repeat(4, auto);
 }
 
-button {
+.grid button {
   border-radius: 5px;
-  height: 76px;
-  width: 117px;
   border: 1px solid #E5E5E5;
   font-size: 2rem;
+  height: 76px;
+  width: 100%;
 }
 
 .digit-btn {
@@ -83,10 +87,19 @@ button {
   color: #5D5D5D;
 }
 
+#backspace-btn img {
+  height: 20%;
+}
+
+#clear-btn {
+  grid-column: 1 / span 2;
+}
+
 #equals-btn {
-  border: none;
   background-color: #005A9E;
+  border: none;
   color: #E2ECF4;
+  grid-column: 3 / span 2;
 }
 
 #equals-btn:hover {
@@ -99,6 +112,11 @@ button {
   color: #B1CDE1;
 }
 
-button:hover {
-  background-color: yellow;
+.footer {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.footer a {
+  color: #02007F;
 }

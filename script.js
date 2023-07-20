@@ -5,42 +5,32 @@ const display = document.querySelector(".display");
 const equalsBtn = document.getElementById("equals-btn");
 const operatorBtns = document.querySelectorAll(".operator-btn");
 
-digiBtns.forEach(button => {
-  button.addEventListener("click", addDigit)
-});
-equalsBtn.addEventListener("click", calculate);
 backspaceBtn.addEventListener("click", removeDigit);
 clearBtn.addEventListener("click", reset);
-
-operatorBtns.forEach(button => {
-  button.addEventListener("click", setOperator)
-});
-
-// Math functions
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
-const divide = (a, b) => a / b;
+digiBtns.forEach(button => { button.addEventListener("click", addDigit) });
+equalsBtn.addEventListener("click", checkValidOperation);
+operatorBtns.forEach(button => { button.addEventListener("click", setOperator) });
 
 // Global variables
+let memory = [];
 let numberString = "";
 let operator = "";
-let memory = [];
 
-function calculate() {
-  if (numberString !== "") {
-    memory.push(parseFloat(numberString));
-  }
-  if (memory.length > 1) {
-    memory = [operate(memory[0], memory[1])];
-    updateDisplay(memory)
-  } 
+function reset() {
   numberString = "";
+  operator = "";
+  memory = [];
+  display.textContent = "0";
 }
 
+const add = (a, b) => a + b;
+const divide = (a, b) => a / b;
+const multiply = (a, b) => a * b;
+const subtract = (a, b) => a - b;
+
+const updateDisplay = (value) => display.textContent = value;
 
 function operate(a, b) {
-  // console.log("operate()");
   switch (operator) {
     case "add":
       return add(a, b);
@@ -53,11 +43,30 @@ function operate(a, b) {
   }
 }
 
+function saveNumberToMemory() {
+  if (numberString !== "") {
+    memory.push(parseFloat(numberString));
+  }
+}
+
+function checkValidOperation() {
+  if (memory.length > 1) {
+    if (memory[1] === 0 && operator === "divide") {
+      updateDisplay("ZERO DIVISION ERROR")
+    } else {
+      memory = [operate(memory[0], memory[1])];
+      updateDisplay(memory)
+    }
+  }
+  numberString = "";
+}
+
+
 
 function setOperator(event) {
-  calculate();
+  saveNumberToMemory();
+  checkValidOperation();
   operator = event.target.dataset.operator;
-  
 }
 
 function addDigit(event) {
@@ -75,24 +84,8 @@ function addDigit(event) {
 function removeDigit() {
   numberString = numberString.slice(0, -1);
   if (numberString !== "") {
-    updateDisplay(numberString); 
+    updateDisplay(numberString);
   } else {
     updateDisplay("0");
   }
 }
-
-function updateDisplay(value) {
-  display.textContent = value;
-}
-
-function reset() {
-  numberString = "";
-  operator = "";
-  memory = [];
-  display.textContent = "0";
-}
-
-reset();
-
-
-
