@@ -8,11 +8,11 @@ const operatorBtns = document.querySelectorAll(".operator-btn");
 backspaceBtn.addEventListener("click", removeDigit);
 clearBtn.addEventListener("click", reset);
 digiBtns.forEach(button => { button.addEventListener("click", addDigit) });
-equalsBtn.addEventListener("click", calculateIfValid);
+equalsBtn.addEventListener("click", calculateIfPossible);
 operatorBtns.forEach(button => { button.addEventListener("click", setOperator) });
 
-// Global variables
-let memory = [];
+// memory[0] will be the current solution, memory[1] will be the new number
+let memory = []; 
 let numberString = "";
 let operator = "";
 
@@ -49,26 +49,27 @@ function saveNumberToMemory() {
   memory.push(parseFloat(numberString));
 }
 
-
-function calculateIfValid() {
+function calculateIfPossible() {
   if (numberString !== "") {
     saveNumberToMemory();
   }
+
+  // Calculates if there is two numbers to work with
   if (memory.length > 1) {
+    // Checks for zero division
     if (memory[1] === 0 && operator === "divide") {
       updateDisplay("ZERO DIVISION ERROR")
     } else {
-      memory = [operate(memory[0], memory[1])];
-      updateDisplay(memory)
+      const solution = operate(memory[0], memory[1])
+      updateDisplay(solution);
+      memory = [solution];
     }
   }
   numberString = "";
 }
 
-
-
 function setOperator(event) {
-  calculateIfValid();
+  calculateIfPossible();
   operator = event.target.dataset.operator;
 }
 
@@ -86,6 +87,8 @@ function addDigit(event) {
 
 function removeDigit() {
   numberString = numberString.slice(0, -1);
+
+  // Displays 0 if all digits are removed
   if (numberString !== "") {
     updateDisplay(numberString);
   } else {
