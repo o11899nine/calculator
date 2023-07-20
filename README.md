@@ -1,6 +1,7 @@
 # Calculator
 
-A project I created for the Odin Project. The goal was to make a calculator. I tried to recreate the Windows 10 Calculator look.
+A project I created for the Odin Project. The goal was to make a calculator. I tried to recreate the Windows 10 Calculator look.<br><br>
+[Live Demo](https://o11899nine.github.io/calculator/) :point_left:
 
 ## Version 1.0
 
