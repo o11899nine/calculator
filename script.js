@@ -61,7 +61,7 @@ function calculateIfPossible() {
       updateDisplay("ZERO DIVISION ERROR")
     } else {
       const solution = operate(memory[0], memory[1])
-      updateDisplay(solution);
+      updateDisplay(+solution.toFixed(10));
       memory = [solution];
     }
   }
