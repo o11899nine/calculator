@@ -8,7 +8,7 @@ const operatorBtns = document.querySelectorAll(".operator-btn");
 backspaceBtn.addEventListener("click", removeDigit);
 clearBtn.addEventListener("click", reset);
 digiBtns.forEach(button => { button.addEventListener("click", addDigit) });
-equalsBtn.addEventListener("click", checkValidOperation);
+equalsBtn.addEventListener("click", calculateIfValid);
 operatorBtns.forEach(button => { button.addEventListener("click", setOperator) });
 
 // Global variables
@@ -28,7 +28,9 @@ const divide = (a, b) => a / b;
 const multiply = (a, b) => a * b;
 const subtract = (a, b) => a - b;
 
-const updateDisplay = (value) => display.textContent = value;
+function updateDisplay(value) {
+  display.textContent = value;
+}
 
 function operate(a, b) {
   switch (operator) {
@@ -44,12 +46,14 @@ function operate(a, b) {
 }
 
 function saveNumberToMemory() {
-  if (numberString !== "") {
-    memory.push(parseFloat(numberString));
-  }
+  memory.push(parseFloat(numberString));
 }
 
-function checkValidOperation() {
+
+function calculateIfValid() {
+  if (numberString !== "") {
+    saveNumberToMemory();
+  }
   if (memory.length > 1) {
     if (memory[1] === 0 && operator === "divide") {
       updateDisplay("ZERO DIVISION ERROR")
@@ -64,8 +68,7 @@ function checkValidOperation() {
 
 
 function setOperator(event) {
-  saveNumberToMemory();
-  checkValidOperation();
+  calculateIfValid();
   operator = event.target.dataset.operator;
 }
 
